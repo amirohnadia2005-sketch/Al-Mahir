@@ -1,0 +1,112 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Pelajar profil dan statistik gamifikasi",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 120 },
+        "email": { "type": "string", "maxLength": 150 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "xp": { "type": "number" },
+        "level": { "type": "number" },
+        "streak": { "type": "number" },
+        "lastActiveDate": { "type": "string", "maxLength": 30 },
+        "completedLessons": { "type": "array" },
+        "badges": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "email", "role", "xp", "level", "streak"]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Skor papan peringkat publik per pengguna",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "maxLength": 128 },
+        "displayName": { "type": "string", "maxLength": 120 },
+        "photoURL": { "type": "string", "maxLength": 500 },
+        "xp": { "type": "number" },
+        "level": { "type": "number" },
+        "streak": { "type": "number" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "displayName", "xp", "level", "streak"]
+    },
+    "CurriculumModule": {
+      "title": "CurriculumModule",
+      "description": "Modul materi kurikulum bahasa Arab",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 150 },
+        "titleArabic": { "type": "string", "maxLength": 150 },
+        "level": { "type": "string", "enum": ["mubtadi", "mutawassit", "mutaqaddim"] },
+        "order": { "type": "number" },
+        "description": { "type": "string", "maxLength": 500 },
+        "icon": { "type": "string", "maxLength": 50 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "titleArabic", "level", "order"]
+    },
+    "QuestionItem": {
+      "title": "QuestionItem",
+      "description": "Soal mufrodat untuk arena permainan dan kuis",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["guess_picture", "word_connect", "audio_listening", "speed_quiz"] },
+        "level": { "type": "string", "enum": ["mubtadi", "mutawassit", "mutaqaddim"] },
+        "arabicText": { "type": "string", "maxLength": 200 },
+        "transliteration": { "type": "string", "maxLength": 200 },
+        "translation": { "type": "string", "maxLength": 200 },
+        "options": { "type": "array" },
+        "correctAnswer": { "type": "string", "maxLength": 200 },
+        "imageUrl": { "type": "string", "maxLength": 500 },
+        "audioText": { "type": "string", "maxLength": 200 },
+        "category": { "type": "string", "maxLength": 100 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["type", "arabicText", "translation", "correctAnswer", "options"]
+    },
+    "MediaItem": {
+      "title": "MediaItem",
+      "description": "Media pembelajaran video, lagu anak/nasyid edukasi dan rekaman suara",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 150 },
+        "category": { "type": "string", "maxLength": 100 },
+        "type": { "type": "string", "enum": ["video", "song", "audio"] },
+        "url": { "type": "string", "maxLength": 500 },
+        "description": { "type": "string", "maxLength": 500 },
+        "lyricsArabic": { "type": "string", "maxLength": 2000 },
+        "lyricsTranslation": { "type": "string", "maxLength": 2000 },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "type", "url", "category"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Data profil privat dan progres pelajar"
+    },
+    "/leaderboard/{userId}": {
+      "schema": "LeaderboardEntry",
+      "description": "Data statistik publik untuk papan peringkat"
+    },
+    "/curriculum/{moduleId}": {
+      "schema": "CurriculumModule",
+      "description": "Daftar kurikulum dan unit materi pembelajaran"
+    },
+    "/questions/{questionId}": {
+      "schema": "QuestionItem",
+      "description": "Bank soal mufrodat multi-mode"
+    },
+    "/media/{mediaId}": {
+      "schema": "MediaItem",
+      "description": "Pustaka multimedia video dan lagu edukasi Arab"
+    }
+  }
+}

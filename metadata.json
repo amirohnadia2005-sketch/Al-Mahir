@@ -1,0 +1,6 @@
+{
+  "name": "Al-Mahir - Belajar Bahasa Arab Gamifikasi",
+  "description": "Aplikasi pembelajaran bahasa Arab interaktif berbasis gamifikasi, kuis harian, 4 mode permainan mufrodat, audio pelafalan, video/lagu, AI tutor, dan papan peringkat real-time.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
